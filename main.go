@@ -9,12 +9,6 @@ import (
 	"os/exec"
 )
 
-func isfatal(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
 func run(args []string) {
 	cmd_name := args[1]
 
@@ -26,7 +20,9 @@ func run(args []string) {
 	cmd := exec.Command(cmd_name, cmd_args...)
 
 	out, err := cmd.CombinedOutput()
-	isfatal(err)
+	if err != nil {
+		log.Fatal("Error executing the command: ", err)
+	}
 
 	// err = cmd.Run()
 	// isfatal(err)
@@ -50,7 +46,7 @@ func watch(watcher *fsnotify.Watcher, args []string) {
 				run(args)
 			}
 		case err := <-watcher.Errors:
-			log.Println("error: ", err)
+			log.Println("Error from fsnotify watcher: ", err)
 		}
 	}
 }
@@ -61,7 +57,7 @@ func main() {
 	args := flag.Args()
 
 	if len(args) < 2 {
-		log.Fatal("Not enough arguments")
+		log.Fatal("Not enough arguments, need at least 2")
 	}
 
 	w, err := fsnotify.NewWatcher()
