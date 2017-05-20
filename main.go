@@ -24,9 +24,6 @@ func run(args []string) {
 		log.Println("Error executing the command: ", err)
 	}
 
-	// err = cmd.Run()
-	// isfatal(err)
-
 	log.Printf("%s\n", out)
 }
 
@@ -69,6 +66,5 @@ func main() {
 	go watch(w, args)
 
 	done := make(chan bool)
-
 	<-done
 }
