@@ -13,4 +13,8 @@ To make it ran at the backgroud all the time example use:
 $ nohup watchfile index.html diff index.html index._old.html &
 ```
 this will make it immunune to bash terminal closure (`nohup`) and shall continue to run the it at the background (`&`). 
-    
+
+### installation
+Download the required binary here: https://github.com/biosckon/watchfile/releases/
+
+Alternatively for go programmers... you know what to do.
